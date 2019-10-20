@@ -11,8 +11,8 @@ let gulp = require('gulp'),
         .pipe(sass())
         //перенос строки. compressed - все в одну строку (для min.js)
         //expanded - дефолтный перенос (как все пишут обычный код)
-        // .pipe(sass({outputStyle: 'expanded'}))
-        // .pipe(gulp.dest('app/css'))
+        .pipe(sass({outputStyle: 'expanded'}))
+        .pipe(gulp.dest('app/css'))
         .pipe(sass({outputStyle: 'compressed'}))
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('app/css'))
@@ -32,22 +32,22 @@ let gulp = require('gulp'),
 // библиотеки css
 gulp.task('css', function () {
     return gulp.src([
-        'node_modules/normalize.css/normalize.css'
+        'node_modules/normalize.css/normalize.css',
         // 'node_modules/bootstrap/dist/css/bootstrap.css',
-        // 'node_modules/slick-carouselnpm/slick/slick.css',
+        'node_modules/slick-carousel/slick/slick.css'
         // 'node_modules/slick-carousel/slick/slick-theme.css',
     ])
-        .pipe(concat('_libs.sass'))
-        .pipe(gulp.dest('app/sass'))
+        .pipe(concat('libs.min.css'))
+        .pipe(gulp.dest('app/css'))
         .pipe(browserSync.reload({stream: true}))
 });
 
 //подключать библиотеки
 gulp.task('js',function () {
     return gulp.src([
-        'node_modules/jquery/dist/jquery.min.js'
+        'node_modules/jquery/dist/jquery.min.js',
         // 'node_modules/bootstrap/dist/js/bootstrap.min.js',
-        // 'node_modules/slick-carousel/slick/slick.min.js'
+        'node_modules/slick-carousel/slick/slick.min.js'
         // 'node_modules/magnific-popup/dist/jquery.magnific-popup.js'
     ])
         .pipe(concat('libs.min.js'))
